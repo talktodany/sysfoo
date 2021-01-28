@@ -5,4 +5,4 @@ services:
   sysfoo:
     image: talktodany/sysfoo:latest
     ports:
-      - 88969:8080
+      - 8883:8080
