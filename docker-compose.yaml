@@ -1,0 +1,8 @@
+
+version: "3.8"
+
+services:
+  sysfoo:
+    image: talktodany/sysfoo:latest
+    ports:
+      - 88969:8080
