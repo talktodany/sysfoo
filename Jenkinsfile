@@ -22,6 +22,7 @@ tools{
           steps{
               echo 'Package maven Step'
               sh 'mvn package -DskipTests'
+              archiveArtifacts 'target/*.war'
           }
       }
   }
