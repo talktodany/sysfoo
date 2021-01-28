@@ -1,5 +1,6 @@
 pipeline {
   agent none
+
   stages {
     stage('build') {
       agent {
@@ -34,6 +35,11 @@ pipeline {
         }
 
       }
+       when {
+             beforeAgent true
+             branch  'master'
+           }
+
       steps {
         echo 'Package maven Step'
         sh 'mvn package -DskipTests'
@@ -41,7 +47,27 @@ pipeline {
       }
     }
 
+     stage('Deploy to Dev') {
+       when {
+             beforeAgent true
+             branch  'master'
+           }
+
+      agent any
+
+      steps {
+        echo 'Deploying to Dev Environment with Docker Compose'
+        sh 'docker-compose up -d'
+      }
+    }
+
     stage('Docker BuildandPublish') {
+      
+      when {
+             beforeAgent true
+             branch  'master'
+           }
+
       steps {
         script {
           docker.withRegistry('https://index.docker.io/v1/', 'dockerlogin') {
